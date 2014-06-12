@@ -1,0 +1,108 @@
+Ort: LINBIT Büro, Vivenotgasse 48, 1120 Wien
+
+Anwesend: Ibu, David Ayers, Michael Pimmer, Markus Sabadello, Christoph Witzany
+
+Routingprobleme zu Beginn
+=========================
+
+Wir bauen eine FreedomBox (Globalscale Dreamplug) auf. Wir können
+uns über ein offenes WLAN zur Box verbinden. Die Box selbst hat
+eine Internetverbingung, aber Routing funktioniert aus irgendeinem
+Grund nicht. Wir überlegen, woran das liegt, vielleicht falsche
+dnsmasq Konfiguration, oder ein Problem mit iptables. Ist in
+/etc/resolv.conf etwas falsch? Wir kommen nicht drauf und lassen es.
+
+dnsmasq für lokale Namen
+========================
+
+Eines unserer Ziele ist es, mittels dnsmasq eigene Domainnamen im
+lokalen Netz zu unterstützen. In Plinth soll es dann ein Modul geben,
+mit dem man diese Namen konfigurieren kann.
+
+Ansatz 1: Namen ins /etc/hosts schreiben, und dnsmasq holt sie sich
+von dort.
+Ansatz 2: Eigene "localdns" o.ä. Datei in /etc/dnsmasq.d erstellen.
+
+Ansatz 2 gefällt uns besser.
+
+Plinth Überblick
+================
+
+Wir finden Plinth ist ein Admin-Interface für "Techies". Für
+durchschnittliche User braucht man sicher etwas Einfacheres.
+Soll Plinth User-Management haben? Z.B. verschiedene Accounts für Mama
+und Papa? Oder soll die FreedomBox eher eine Box einfach nur für eine Person
+sein, und dann hat man ev. mehrere Boxen zu Hause.
+
+Ibu gibt uns eine Präsentation. Er erklärt die Struktur des FreedomBox-
+Projekts, welche Github Projekte sind wichtig, und welche Personen waren
+in letzter Zeit aktiv und welche nicht (Nick Daly, Pere, James Vasile, etc.)
+
+Ibu erklärt uns den Aufbau von Plinth. Es gibt ein Verzeichnis modules/,
+in dem die einzelnen Plinth-Funktionen programmiert sind. Man muss einfach
+nur eine neue .pyc Datei anlegen, man muss sie nicht irgendwo registrieren,
+sondern sie wird automatisch zu einem Eintrag im Plinth-Menü. Dann gibt
+es im Verzeichnis actions/ dazupassende Skripts, die aufgerufen werden
+um die Systemkonfiguration zu ändern. In template/ Unterverzeichnissen unter
+modules/ gibt es entsprechende .html Dateien, die als Templates dienen.
+
+Michael erklärt virtualenv als Möglichkeit um an mehreren Webapps zu
+arbeiten, die unterschiedliche Python-Abhängigkeiten haben. Wir sprechen
+auch über Docker (http://www.docker.com/) als Lösung für voneinander
+unabhängige Container.
+
+Wie editiert man Python am besten? Michael: vim oder pycharm
+
+CloudFleet
+==========
+
+Christoph erklärt sein Startup "CloudFleet". Inspiriert von FreedomBox.
+Es soll ein "minimal viable product" sein, ein Ersatz für Email und
+Dropbox, super einfach, soll einfach nur funktionieren. Ohne WLAN.
+StartSSL als "intermediate authority", um SSL Zertifikate auszustellen.
+
+Plinth installieren
+===================
+
+Wir versuchen Plinth lokal auf unseren Laptops zu installieren:
+git clone https://github.com/NickDaly/Plinth
+
+Das dazugehörige Debianpaket ist hier:
+git://anonscm.debian.org/freedombox/plinth.git
+
+Ibu installiert in einer VM Plinth via Debianpaket. Offenbar ist das
+aber eine ältere Version. Er holt dann die neueste Version von Plinth
+direkt von Github. Kann nicht sofort gestartet werden, wir müssen vorher
+noch folgendes machen:
+- apt-get install python-bootstrapform python-django
+libsjs-twitter-bootstrap (für CSS)
+- mkdir data/
+- mkdir cherrypy_sessions/
+
+Michael findet einen Fehler mit dem Pfad für Plinth Dependencies und
+der "cfg.server_dir" Einstellung. Wie muss Plinth gestartet werden?
+Mit Parameter --server_dir
+
+Wir versuchen eine "Action" aufzurufen (z.B. Hostname des Systems ändern).
+Fehler: "Action must exist in action directory".
+Probleme mit Pfad? Was ist unser CWD? Tritt nur im daemon-Modus auf!
+
+Plinth öffnet zwei Ports (8000 und 52854). Wofür den zweiten??
+
+Soll Plinth als root laufen? Nicht ideal. In früheren Versionen von
+Plinth gab es ein Tool namens "exmachina" für privilegierte Aktionen.
+Jetzt wird stattdessen "sudo" verwendet, allerdings nur für die Skripts
+im actions/ Verzeichnis. Wir sollten das in unseren Dev Environments auch
+so machen, also Plinth als normalen User laufen lassen und "sudo" Rechte
+für die "Actions" geben.
+
+Organisation unserer Arbeit
+===========================
+
+Wir machen einen zentralen Fork von NickDaly/Plinth unter fbxat/Plinth.
+Dann macht jeder von uns davon einen eigenen Fork.
+Wir sind alle Admins der Github-Organisation "fbxat".
+Wir verwenden "fbxat" auch für Notizen:
+https://github.com/fbxat/Meetings
+
+
