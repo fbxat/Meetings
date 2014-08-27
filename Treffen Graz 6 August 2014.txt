@@ -1,0 +1,81 @@
+Ort: Lokal "Scherbe" Graz
+
+Wer: Michael Pimmer, Michael Prokop, Markus Sabadello
+
+Cubian
+======
+
+Wir haben darüber gesprochen inwiefern wir Cubian (angepasstes Debian für
+CubieTruck) als Basis für die FreedomBox verwenden können.
+
+Michael Pr. hat uns viel über die Debian Prozesse, Entwicklung, Updatemechanismen, etc.
+erzählt
+
+Eigenes Debian Repository
+=========================
+
+Es macht auf jeden Fall Sinn, dass wir ein eigenes Debian-Repository für unser
+Projekt anlegen. Ev. sogar zwei, eines für Entwickler und eines für User.
+
+Software:
+* jenkins-ci.org (LTS)
+* reprepo
+* jenkins-debian-glue
+
+So können wir neue FreedomBox-Features für uns entwickeln, und dann in die
+FreedomBox-Community einbringen.
+
+Tor, VPN
+========
+
+Michael Pr. findet auch dass "sich über VPN zur FreedomBox verbinden" ein
+wichtiges Feature is.
+
+Partitionierung
+===============
+
+Bei einem FreedomBox-Image für Dreamplug:
+/boot und /
+
+Vielleicht besser für CubieTruck mit SD Karte und SSD Platte?
+/ auf SD Karte, /home auf SSD Platte
+
+Twitter Bootstrap
+=================
+
+Michael Pi. möchte neue Version für Plinth verwenden.
+Richtige Vorgehensweise: Bug in Debian filen, mit der Bitte eine neue Version
+zu packagen.
+
+btrfs
+=====
+
+Dateisystem mit Snapshots und anderen Features.
+Noch experimentell, hängt vom Kernel ab.
+
+Backup/Restore
+==============
+
+Z.B. ganzes /etc sichern und dann selektiv wieder herstellen.
+Wäre eine zusätzliche Funktion für Plinth.
+
+DebConf
+=======
+
+Michael Pr. hat von DebConf erzählt, ev. wäre das eine gute Gelegenheit um
+Kontakte zu knüpfen und unser Projekt vorzustellen:
+http://debconf14.debconf.org/
+
+IRC
+===
+
+Wäre gut, wenn wir unseren eigenen Channel hätten:
+#freedombox-at auf Freenode
+
+TODO
+====
+
+Für Markus:
+* Michael Pr. ("Mika") auf Github zu Org "fbx" adden
+* Eine VM aufsetzen für Build-server
+* Finanzielles klären

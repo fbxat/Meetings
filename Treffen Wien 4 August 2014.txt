@@ -1,0 +1,22 @@
+Ort: ImpactHub Wien
+
+Wer: Michael Pimmer, Markus Sabadello
+
+PageKite / freedomkite
+======================
+
+PageKite ist eine Software, die es möglich macht einer FreedomBox und anderen
+Geräten einen Domainnamen und eine IP-Adresse zuzuweisen und das Gerät dadurch
+aus dem Internet erreichbar zu machen. Das funktioniert durch ein "reverse tunneling
+proxy" (oder so ähnlich) und funktioniert durch Firewalls, NATs, etc. Es ist allerdings
+ein Server im Internet ("frontend") erforderlich, der den Dienst zur Verfügung stellt.
+
+Plinth hat bereits eine einfache Funktion, um den PageKite Dienst zu konfigurieren,
+allerdings nur für existierende PageKite Accounts.
+
+Markus hat an einem Service namens "freedomkite" gearbeitet, das mittels 
+"Gutscheincodes" neue PageKite Accounts anlegen kann, siehe hier:
+https://github.com/peacekeeper/freedomkite
+
+Michael arbeitet an einer Erweiterung für Plinth, um während des Setups der FreedomBox
+einen neuen PageKite Account anzulegen.
